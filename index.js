@@ -23,7 +23,10 @@ function render () {
     let bookHTML = '<ul>';
     books.forEach((objeto, index) => {
         bookHTML += `
-            <li>${objeto.name} <button id="btnAddToCart" data-id="${objeto.id}">Add to Cart</button></li>
+            <li>${objeto.name}
+                <button id="btnAddToCart" data-id="${objeto.id}">Add to Cart</button>
+                <button id="removeElement" data-id="${objeto.id}">Remove</button>
+            </li>
         `;
     });
     bookHTML += '</ul>'
@@ -40,3 +43,28 @@ btnsAddToCart.forEach((btn) => {
         console.log(btn.getAttribute('data-id'));
     });
 });
+
+const btnsRemoveElement = document.querySelectorAll('#removeElement');
+
+btnsRemoveElement.forEach((btn) => {
+    btn.addEventListener('click', function (event) {
+        // console.log(this.closest('li'));
+        this.closest('li').remove();
+    });
+});
+
+/*
+btnsRemoveElement.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+        const idBtn = btn.getAttribute('data-id');
+        const index = books.findIndex((book) => {
+            return book.id === Number(idBtn); // retorna o índice do array Books
+        });
+
+        books.splice(index, 1);
+        render();
+        // console.log('ID', btn.getAttribute('data-id'), 'removido!');
+        console.log(index);
+    });
+});
+*/
