@@ -5,3 +5,7 @@
 .book li {
     margin-bottom: 0.5rem;
 }
+
+.hide {
+    display: none;
+}
