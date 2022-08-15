@@ -1,44 +1,33 @@
-const books = [
-    {
-        id: 1,
-        name: 'Book 1'
-    },
-    {
-        id: 2,
-        name: 'Book 2'
-    },
-    {
-        id: 3,
-        name: 'Book 3'
-    },
-    {
-        id: 4,
-        name: 'Book 4'
-    },
-];
+import getUsers from './users';
 
-const booksElement = document.querySelector('#books');
+const usersElement = document.querySelector('#users');
 
-function render () {
-    let bookHTML = '<ul>';
-    books.forEach((book, index) => {
-        bookHTML += `
-            <li id="list_li${book.id}">
-                <span id="name${book.id}">${book.name}</span>
-                <button id="btn_add_to_cart" data-id="${book.id}">Add to Cart</button>
-                <button id="btn_remove_element" data-id="${book.id}">Remove</button>
-                <button id="btn_edit_element" data-id="${book.id}">Edit</button>
-            </li>
-            <li id="edit_li${book.id}" class="hide">
-                <input type="text" id="input${book.id}" value="${book.name}" />
-                <button id="btn_back" data-id="${book.id}">Back</button>
-                <button id="btn_save" data-id="${book.id}">Save</button>
-            </li>
-        `;
-    });
-    bookHTML += '</ul>'
+async function render () {
 
-    booksElement.innerHTML = bookHTML;
+    try {
+        let userHTML = '<ul>';
+        const users = await getUsers();
+        users.forEach((user, index) => {
+            userHTML += `
+                <li id="list_li${user.id}">
+                    <span id="name${user.id}">${user.name}</span>
+                    <button id="btn_add_to_cart" data-id="${user.id}">Add to Cart</button>
+                    <button id="btn_remove_element" data-id="${user.id}">Remove</button>
+                    <button id="btn_edit_element" data-id="${user.id}">Edit</button>
+                </li>
+                <li id="edit_li${user.id}" class="hide">
+                    <input type="text" id="input${user.id}" value="${user.name}" />
+                    <button id="btn_back" data-id="${user.id}">Back</button>
+                    <button id="btn_save" data-id="${user.id}">Save</button>
+                </li>
+            `;
+        });
+        userHTML += '</ul>'
+
+        usersElement.innerHTML = userHTML;
+    }catch(error) {
+        console.log(error);
+    }
 }
 
 render();
