@@ -2492,10 +2492,13 @@ const axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   \******************************/
 /***/ (() => {
 
-const btnsAddToCart = document.querySelectorAll('#btn_add_to_cart');
-btnsAddToCart.forEach(btn => {
-  btn.addEventListener('click', () => {
-    console.log(btn.getAttribute('data-id'));
+const usersElement = document.querySelector('#users');
+usersElement.addEventListener('loaded', () => {
+  const btnsAddToCart = document.querySelectorAll('#btn_add_to_cart');
+  btnsAddToCart.forEach(btn => {
+    btn.addEventListener('click', () => {
+      console.log(btn.getAttribute('data-id'));
+    });
   });
 });
 
@@ -2511,14 +2514,17 @@ btnsAddToCart.forEach(btn => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hide */ "./modules/hide.js");
 
-const btnsBack = document.querySelectorAll('#btn_back');
-btnsBack.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('data-id');
-    const inputEditValue = document.querySelector('#input' + id);
-    const nameEditValue = document.querySelector('#name' + id);
-    nameEditValue.innerHTML = inputEditValue.value;
-    (0,_hide__WEBPACK_IMPORTED_MODULE_0__["default"])(['#edit_li' + id, '#list_li' + id]);
+const usersElement = document.querySelector('#users');
+usersElement.addEventListener('loaded', () => {
+  const btnsBack = document.querySelectorAll('#btn_back');
+  btnsBack.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const inputEditValue = document.querySelector('#input' + id);
+      const nameEditValue = document.querySelector('#name' + id);
+      nameEditValue.innerHTML = inputEditValue.value;
+      (0,_hide__WEBPACK_IMPORTED_MODULE_0__["default"])(['#edit_li' + id, '#list_li' + id]);
+    });
   });
 });
 
@@ -2534,11 +2540,14 @@ btnsBack.forEach(btn => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hide */ "./modules/hide.js");
 
-const btnsEditElement = document.querySelectorAll('#btn_edit_element');
-btnsEditElement.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('data-id');
-    (0,_hide__WEBPACK_IMPORTED_MODULE_0__["default"])(['#edit_li' + id, '#list_li' + id]);
+const usersElement = document.querySelector('#users');
+usersElement.addEventListener('loaded', () => {
+  const btnsEditElement = document.querySelectorAll('#btn_edit_element');
+  btnsEditElement.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      (0,_hide__WEBPACK_IMPORTED_MODULE_0__["default"])(['#edit_li' + id, '#list_li' + id]);
+    });
   });
 });
 
@@ -2597,7 +2606,9 @@ async function render() {
             `;
     });
     userHTML += '</ul>';
+    const event = new CustomEvent('loaded');
     usersElement.innerHTML = userHTML;
+    usersElement.dispatchEvent(event);
   } catch (error) {
     console.log(error);
   }
@@ -2613,11 +2624,14 @@ render();
   \***************************/
 /***/ (() => {
 
-const btnsRemoveElement = document.querySelectorAll('#btn_remove_element');
-btnsRemoveElement.forEach(btn => {
-  btn.addEventListener('click', function (event) {
-    // console.log(this.closest('li'));
-    this.closest('li').remove(); // esse comando só funciona com uma function normal, ou seja, não funciona com arrow function
+const usersElement = document.querySelector('#users');
+usersElement.addEventListener('loaded', () => {
+  const btnsRemoveElement = document.querySelectorAll('#btn_remove_element');
+  btnsRemoveElement.forEach(btn => {
+    btn.addEventListener('click', function (event) {
+      // console.log(this.closest('li'));
+      this.closest('li').remove(); // esse comando só funciona com uma function normal, ou seja, não funciona com arrow function
+    });
   });
 });
 
@@ -2629,11 +2643,14 @@ btnsRemoveElement.forEach(btn => {
   \*************************/
 /***/ (() => {
 
-const btnsSave = document.querySelectorAll('#btn_save');
-btnsSave.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('data-id');
-    console.log('save ' + id);
+const usersElement = document.querySelector('#users');
+usersElement.addEventListener('loaded', () => {
+  const btnsSave = document.querySelectorAll('#btn_save');
+  btnsSave.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      console.log('save ' + id);
+    });
   });
 });
 
@@ -2660,7 +2677,7 @@ async function getUsers() {
     } = await _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/list');
     return data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error); // console.log(error);
   }
 }
 

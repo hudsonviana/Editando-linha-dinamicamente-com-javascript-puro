@@ -24,7 +24,9 @@ async function render () {
         });
         userHTML += '</ul>'
 
+        const event = new CustomEvent('loaded');
         usersElement.innerHTML = userHTML;
+        usersElement.dispatchEvent(event);
     }catch(error) {
         console.log(error);
     }

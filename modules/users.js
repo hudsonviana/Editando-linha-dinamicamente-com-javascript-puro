@@ -5,7 +5,8 @@ async function getUsers() {
         const { data } = await http.get('/list');
         return data;
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
+        // console.log(error);
     }
 }
 
