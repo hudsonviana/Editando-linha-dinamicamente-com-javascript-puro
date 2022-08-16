@@ -10,13 +10,13 @@ usersElement.addEventListener('loaded', () => {
             try {
                 const id = btn.getAttribute('data-id');
                 const inputName = document.querySelector('#input'+id);
-                const messageUpdated = document.querySelector('#message'+id);
-                const { data } = await http.post('/user/update', {
+                const { data } = await http.put('/user/update', {
                     id,
                     name: inputName.value
                 });
 
                 if (data === 'updated') {
+                    const messageUpdated = document.querySelector('#message'+id);
                     const inputEditValue = document.querySelector('#input' + id);
                     const nameEditValue = document.querySelector('#name' + id);
                     nameEditValue.innerHTML = inputEditValue.value;

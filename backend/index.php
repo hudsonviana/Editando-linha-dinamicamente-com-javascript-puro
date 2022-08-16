@@ -9,8 +9,11 @@ $routes = [
     'GET' => [
         '/list' => fn () => require('./list.php')
     ],
-    'POST' => [
+    'PUT' => [
         '/user/update' => fn () => require('./update.php')
+    ],
+    'DELETE' => [
+        '/user/destroy' => fn () => require('./delete.php')
     ]
 ];
 

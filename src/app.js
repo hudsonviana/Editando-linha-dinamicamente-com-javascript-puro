@@ -2624,15 +2624,39 @@ render();
 /*!***************************!*\
   !*** ./modules/remove.js ***!
   \***************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../http */ "./http.js");
 
 const usersElement = document.querySelector('#users');
 usersElement.addEventListener('loaded', () => {
   const btnsRemoveElement = document.querySelectorAll('#btn_remove_element');
   btnsRemoveElement.forEach(btn => {
-    btn.addEventListener('click', function (event) {
-      // console.log(this.closest('li'));
-      this.closest('li').remove(); // esse comando só funciona com uma function normal, ou seja, não funciona com arrow function
+    btn.addEventListener('click', async function (event) {
+      try {
+        const id = btn.getAttribute('data-id');
+        const {
+          data
+        } = await _http__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/user/destroy', {
+          data: {
+            id
+          }
+        });
+
+        if (data === 'deleted') {
+          const messageUpdated = document.querySelector('#message' + id);
+          messageUpdated.textContent = 'Deletado com sucesso!';
+          setTimeout(() => {
+            this.closest('li').remove(); // esse comando só funciona com uma function normal, ou seja, não funciona com arrow function
+
+            messageUpdated.textContent = '';
+          }, 3000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 });
@@ -2659,15 +2683,15 @@ usersElement.addEventListener('loaded', () => {
       try {
         const id = btn.getAttribute('data-id');
         const inputName = document.querySelector('#input' + id);
-        const messageUpdated = document.querySelector('#message' + id);
         const {
           data
-        } = await _http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/user/update', {
+        } = await _http__WEBPACK_IMPORTED_MODULE_0__["default"].put('/user/update', {
           id,
           name: inputName.value
         });
 
         if (data === 'updated') {
+          const messageUpdated = document.querySelector('#message' + id);
           const inputEditValue = document.querySelector('#input' + id);
           const nameEditValue = document.querySelector('#name' + id);
           nameEditValue.innerHTML = inputEditValue.value;
@@ -2797,7 +2821,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_addToCart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/addToCart */ "./modules/addToCart.js");
 /* harmony import */ var _modules_addToCart__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_addToCart__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_remove__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/remove */ "./modules/remove.js");
-/* harmony import */ var _modules_remove__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_modules_remove__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _modules_edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/edit */ "./modules/edit.js");
 /* harmony import */ var _modules_back__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/back */ "./modules/back.js");
 /* harmony import */ var _modules_save__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/save */ "./modules/save.js");
