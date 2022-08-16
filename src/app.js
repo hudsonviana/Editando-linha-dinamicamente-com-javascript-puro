@@ -2521,8 +2521,9 @@ usersElement.addEventListener('loaded', () => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       const inputEditValue = document.querySelector('#input' + id);
-      const nameEditValue = document.querySelector('#name' + id);
-      nameEditValue.innerHTML = inputEditValue.value;
+      const nameEditValue = document.querySelector('#name' + id); // nameEditValue.innerHTML = inputEditValue.value;
+
+      inputEditValue.value = nameEditValue.innerHTML;
       (0,_hide__WEBPACK_IMPORTED_MODULE_0__["default"])(['#edit_li' + id, '#list_li' + id]);
     });
   });
@@ -2594,14 +2595,14 @@ async function render() {
       userHTML += `
                 <li id="list_li${user.id}">
                     <span id="name${user.id}">${user.name}</span>
-                    <button id="btn_add_to_cart" data-id="${user.id}">Add to Cart</button>
-                    <button id="btn_remove_element" data-id="${user.id}">Remove</button>
-                    <button id="btn_edit_element" data-id="${user.id}">Edit</button>
+                    <button class="btn btn-warning btn-sm" id="btn_add_to_cart" data-id="${user.id}"><i class="bi bi-cart-check-fill"></i> Add to Cart</button>
+                    <button class="btn btn-danger btn-sm" id="btn_remove_element" data-id="${user.id}"><i class="bi bi-trash3-fill"></i> Remove</button>
+                    <button class="btn btn-success btn-sm" id="btn_edit_element" data-id="${user.id}"><i class="bi bi-pencil-square"></i> Edit</button>
                 </li>
                 <li id="edit_li${user.id}" class="hide">
                     <input type="text" id="input${user.id}" value="${user.name}" />
-                    <button id="btn_back" data-id="${user.id}">Back</button>
-                    <button id="btn_save" data-id="${user.id}">Save</button>
+                    <button class="btn btn-info btn-sm" id="btn_back" data-id="${user.id}">Back</button>
+                    <button class="btn btn-success btn-sm" id="btn_save" data-id="${user.id}">Save</button>
                 </li>
                 <span id="message${user.id}"></span>
             `;

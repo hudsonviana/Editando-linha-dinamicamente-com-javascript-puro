@@ -9,7 +9,8 @@ usersElement.addEventListener('loaded', () => {
             const id = btn.getAttribute('data-id');
             const inputEditValue = document.querySelector('#input' + id);
             const nameEditValue = document.querySelector('#name' + id);
-            nameEditValue.innerHTML = inputEditValue.value;
+            // nameEditValue.innerHTML = inputEditValue.value;
+            inputEditValue.value = nameEditValue.innerHTML;
             toggleHideClass(['#edit_li'+id, '#list_li'+id]);
         });
     });
