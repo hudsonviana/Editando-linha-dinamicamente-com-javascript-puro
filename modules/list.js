@@ -20,6 +20,7 @@ async function render () {
                     <button id="btn_back" data-id="${user.id}">Back</button>
                     <button id="btn_save" data-id="${user.id}">Save</button>
                 </li>
+                <span id="message${user.id}"></span>
             `;
         });
         userHTML += '</ul>'

@@ -2603,6 +2603,7 @@ async function render() {
                     <button id="btn_back" data-id="${user.id}">Back</button>
                     <button id="btn_save" data-id="${user.id}">Save</button>
                 </li>
+                <span id="message${user.id}"></span>
             `;
     });
     userHTML += '</ul>';
@@ -2641,15 +2642,45 @@ usersElement.addEventListener('loaded', () => {
 /*!*************************!*\
   !*** ./modules/save.js ***!
   \*************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../http */ "./http.js");
+/* harmony import */ var _hide__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hide */ "./modules/hide.js");
+
 
 const usersElement = document.querySelector('#users');
 usersElement.addEventListener('loaded', () => {
   const btnsSave = document.querySelectorAll('#btn_save');
   btnsSave.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-id');
-      console.log('save ' + id);
+    btn.addEventListener('click', async () => {
+      try {
+        const id = btn.getAttribute('data-id');
+        const inputName = document.querySelector('#input' + id);
+        const messageUpdated = document.querySelector('#message' + id);
+        const {
+          data
+        } = await _http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/user/update', {
+          id,
+          name: inputName.value
+        });
+
+        if (data === 'updated') {
+          const inputEditValue = document.querySelector('#input' + id);
+          const nameEditValue = document.querySelector('#name' + id);
+          nameEditValue.innerHTML = inputEditValue.value;
+          (0,_hide__WEBPACK_IMPORTED_MODULE_1__["default"])(['#edit_li' + id, '#list_li' + id]);
+          messageUpdated.textContent = 'Atualizado com sucesso!';
+          setTimeout(() => {
+            messageUpdated.textContent = '';
+          }, 3000);
+        }
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 });
@@ -2769,7 +2800,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/edit */ "./modules/edit.js");
 /* harmony import */ var _modules_back__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/back */ "./modules/back.js");
 /* harmony import */ var _modules_save__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/save */ "./modules/save.js");
-/* harmony import */ var _modules_save__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_modules_save__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
